@@ -7,7 +7,7 @@
 
 @class RACSignal;
 
-#import "ANApiRoutes.h"
+#import "ANNetworkRequest.h"
 
 @interface ANNetworkSessionManager : NSObject
 

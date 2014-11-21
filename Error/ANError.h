@@ -5,6 +5,12 @@
 //  Copyright (c) 2014 ANODA. All rights reserved.
 //
 
+#pragma mark - HTTP Server Responce Error Keys
+
+extern NSString* const kErrorCodeKey;
+extern NSString* const kErrorMessageKey;
+extern NSString* const kErrorDomain;
+
 @interface ANError : NSError
 
 + (instancetype)apiErrorWithDictionary:(NSDictionary *)dictionary;

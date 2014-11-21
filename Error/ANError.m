@@ -6,7 +6,10 @@
 //
 
 #import "ANError.h"
-#import "ANApiRoutes.h"
+
+NSString* const kErrorCodeKey = @"code";
+NSString* const kErrorMessageKey = @"message";
+NSString* const kErrorDomain = @"";
 
 @implementation ANError
 
