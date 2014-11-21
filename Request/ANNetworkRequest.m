@@ -13,24 +13,16 @@ NSString* const kMultipartFormBoundary = @"Boundary+0xAbCdEfGbOuNdArY";
 
 #pragma mark - HTTP Method Type
 
-static NSString *httpMethodTypeString[] = {
-    @"GET",
-    @"POST",
-    @"DELETE"
-};
-
-NSString* ANHttpMethodTypeStringFromEnumValue(ANHttpMethodType type)
-{
-    return httpMethodTypeString[type];
-}
-
-ANHttpMethodType ANHttpMethodTypeEnumValueFromSrting(NSString* string)
-{
-    NSArray* array = [NSArray arrayWithObjects:httpMethodTypeString count:3];
-    return [array indexOfObject:string];
-}
+static NSString* kBaseURL = @"";
+static NSString* kApiVersion = @"";
 
 @implementation ANNetworkRequest
+
++ (void)setBaseURL:(NSString *)baseURL andAPIVersion:(NSString *)apiVersion
+{
+    kBaseURL = baseURL;
+    kApiVersion = apiVersion;
+}
 
 + (instancetype)requestWithPath:(NSString *)path parameters:(NSDictionary*)params httpMethod:(ANHttpMethodType)httpMethodType
 {

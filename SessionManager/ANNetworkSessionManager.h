@@ -13,6 +13,8 @@
 
 + (instancetype)shared;
 
+- (void)setBaseURL:(NSString*)baseURL andAPIVersion:(NSString*)apiVersion;
+
 /**
  *  Sends HTPP request without any parameters, sets properly Token
  *

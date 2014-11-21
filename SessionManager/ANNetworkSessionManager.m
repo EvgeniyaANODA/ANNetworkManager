@@ -29,6 +29,11 @@
     return _sharedClient;
 }
 
++ (void)setBaseURL:(NSString*)baseURL andAPIVersion:(NSString*)apiVersion
+{
+    [ANNetworkRequest setBaseURL:baseURL andAPIVersion:apiVersion];
+}
+
 - (instancetype)init
 {
     self = [super init];

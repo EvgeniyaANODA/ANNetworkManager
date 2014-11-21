@@ -10,14 +10,13 @@
 extern NSString* const kAuthTokenHeader;
 extern NSString* const kMultipartFormBoundary;
 
-#import "ANApiRoutes.h"
-
-NSString* ANHttpMethodTypeStringFromEnumValue(ANHttpMethodType);
-ANHttpMethodType ANHttpMethodTypeEnumValueFromSrting(NSString*);
+#import "ANEnumAdditions.h"
 
 @interface ANNetworkRequest : NSMutableURLRequest
 
 @property (nonatomic, strong) NSString* token;
+
++ (void)setBaseURL:(NSString*)baseURL andAPIVersion:(NSString*)apiVersion;
 
 + (instancetype)requestWithPath:(NSString *)path
                      parameters:(NSDictionary*)params
