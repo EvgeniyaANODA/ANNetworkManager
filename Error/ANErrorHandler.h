@@ -1,5 +1,5 @@
 //
-//  CDErrorHandler.h
+//  ANErrorHandler.h
 //
 //  Created by Oksana Kovalchuk on 4/7/14.
 //  Copyright (c) 2014 ANODA. All rights reserved.
@@ -7,17 +7,19 @@
 
 typedef NS_ENUM (NSInteger, ANServerErrorCode)
 {
-    CDServerErrorCodeCouldntComplete = 202
+    ANServerErrorCodeDefault
 };
+
+#import "ANError.h"
 
 @interface ANErrorHandler : NSObject
 
 /**
- *  Handles only errors that come from api.ctrldo.com
+ *  Handles only errors that come from api
  *
- *  @param error CDError object initialized from server respose
+ *  @param error ANError object initialized from server respose
  */
-+ (void)handleNetworkServerError:(CDError*)error;
++ (void)handleNetworkServerError:(ANError*)error;
 
 
 /**
