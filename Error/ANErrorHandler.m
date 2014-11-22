@@ -33,7 +33,7 @@
 + (void)showMessageForError:(NSError *)error
 {
     if (!error) return;
-    ANLogError(error);
+    SMLogError(error);
 }
 
 + (void)handleCoreDataInternalError:(NSError *)error

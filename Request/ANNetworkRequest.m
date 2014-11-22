@@ -28,7 +28,7 @@ static NSString* kApiVersion = @"";
 {
     if (params)
     {
-        ANLog(@"Parameters : \n%@", params);
+        SMLogHTTP(@"Parameters : \n%@", params);
     }
     return [[self alloc] initWithPath:path parameters:params httpMethod:httpMethodType];
 }
@@ -98,7 +98,7 @@ static NSString* kApiVersion = @"";
     NSData* data = [NSJSONSerialization dataWithJSONObject:parameters
                                                    options:NSJSONWritingPrettyPrinted
                                                      error:&error];
-    ANLogError(error);
+    SMLogError(error);
     if (!error)
     {
         [self setHTTPBody:data];
