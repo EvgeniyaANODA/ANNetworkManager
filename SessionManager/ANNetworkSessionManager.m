@@ -21,15 +21,15 @@
 
 + (instancetype)shared
 {
-    static ANNetworkSessionManager *_sharedClient = nil;
+    static id _sharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedClient = [ANNetworkSessionManager new];
-	});
+        _sharedClient = [self new];
+    });
     return _sharedClient;
 }
 
-+ (void)setBaseURL:(NSString*)baseURL andAPIVersion:(NSString*)apiVersion
+- (void)setBaseURL:(NSString*)baseURL andAPIVersion:(NSString*)apiVersion
 {
     [ANNetworkRequest setBaseURL:baseURL andAPIVersion:apiVersion];
 }
@@ -129,15 +129,16 @@
 
 - (void)handleResponse:(NSDictionary*)response subscriber:(id<RACSubscriber>)subscriber
 {
-    NSNumber* status = response[@"status"];
-    if (status.boolValue)
+    NSNumber* status = response[@"code"];
+    if (status.integerValue == 200)
     {
-        [subscriber sendNext:response[@"data"]];
+        [subscriber sendNext:response[@"response"]];
         [subscriber sendCompleted];
     }
     else
     {
-        NSError* error = [ANError apiErrorWithDictionary:response[@"error"]];
+        id errorObject = response[@"errors"];
+        NSError* error = [ANError apiErrorWithDictionary:errorObject];
         [self handleError:error subscriber:subscriber];
     }
 }
@@ -145,7 +146,7 @@
 - (void)logResponse:(NSHTTPURLResponse*)httpResponse description:(NSString*)description json:(NSDictionary*)json
 {
     NSString* logString = [NSString stringWithFormat:@"%@\n%@\n%@\n", description, httpResponse, json];
-    ANLog(@"%@", logString);
+    SMLogHTTP(@"%@", logString);
 }
 
 - (void)handleError:(NSError*)error subscriber:(id<RACSubscriber>)subscriber
