@@ -9,6 +9,7 @@
 #import "ANNetworkActivityManager.h"
 #import "ANErrorHandler.h"
 #import "ANNetworkLog.h"
+#import "ReactiveCocoa.h"
 
 @interface ANNetworkSessionManager () <NSURLSessionTaskDelegate>
 
