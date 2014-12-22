@@ -9,7 +9,7 @@ NSString* const kAuthTokenHeader = @"X-Auth-Token";
 NSString* const kMultipartFormBoundary = @"Boundary+0xAbCdEfGbOuNdArY";
 
 #import "ANNetworkRequest.h"
-#import "ANNetworkLog.h"
+#import "ANLogger.h"
 
 #pragma mark - HTTP Method Type
 
@@ -28,7 +28,7 @@ static NSString* kApiVersion = @"";
 {
     if (params)
     {
-        ANLog(@"Parameters : \n%@", params);
+        ANLogHTTP(@"Parameters : \n%@", params);
     }
     return [[self alloc] initWithPath:path parameters:params httpMethod:httpMethodType];
 }
