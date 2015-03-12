@@ -1,5 +1,7 @@
 ANNetworkManager
 ================
+Requirements:
+IOS 7+
 
 ```
 pod 'ANNetworkManager'
