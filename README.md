@@ -32,7 +32,7 @@ Example :
     
     return [[CDNetworkSessionManager shared] requestWithPath:[apiAuthSms stringByAppendingString:phone]
                                                   parameters:nil
-                                                  httpMethod:CDHttpMethodTypeGET];
+                                                  httpMethod:ANHttpMethodTypeGET];
 }
 
 ```
