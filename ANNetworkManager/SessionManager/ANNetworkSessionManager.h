@@ -6,10 +6,33 @@
 //
 
 @class RACSignal;
+@protocol RACSubscriber;
 
 #import "ANNetworkRequest.h"
 
 @interface ANNetworkSessionManager : NSObject
+
+/**
+ *  parameter name for status response if exist
+ *      data = {
+        };
+        status = 1;
+ Status is BOOL indicator if response successfull
+ */
+
+@property (nonatomic, strong) NSString* statusContainerValue;
+
+/**
+ *  Same to Status, container for response data.
+ */
+
+@property (nonatomic, strong) NSString* dataContainerValue;
+
+/**
+ *  Same to Status - container for errors
+ */
+
+@property (nonatomic, strong) NSString* errorContainerValue;
 
 + (instancetype)shared;
 
@@ -61,5 +84,8 @@
  *  @return RACSignal* signal on completion with result of syncing and new diffs
  */
 - (RACSignal*)syncRequestWithPath:(NSString*)path parameters:(NSDictionary*)params;
+
+//override
+- (void)handleResponse:(NSDictionary*)response subscriber:(id<RACSubscriber>)subscriber;
 
 @end

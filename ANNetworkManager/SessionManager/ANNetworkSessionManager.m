@@ -130,18 +130,15 @@
 
 - (void)handleResponse:(NSDictionary*)response subscriber:(id<RACSubscriber>)subscriber
 {
-    NSNumber* status = response[@"code"];
-    if (status.integerValue == 200)
-    {
-        [subscriber sendNext:response[@"response"]];
-        [subscriber sendCompleted];
-    }
-    else
-    {
-        id errorObject = response[@"errors"];
-        NSError* error = [ANError apiErrorWithDictionary:errorObject];
-        [self handleError:error subscriber:subscriber];
-    }
+    //override
+    NSString * reason = [NSString stringWithFormat:@"%@ should implement %@ method\n",
+                         NSStringFromClass([self class]), NSStringFromSelector(_cmd)];
+    NSException * exc =
+    [NSException exceptionWithName:@"Override exception"
+                            reason:reason
+                          userInfo:nil];
+    [exc raise];
+
 }
 
 - (void)logResponse:(NSHTTPURLResponse*)httpResponse description:(NSString*)description json:(NSDictionary*)json
@@ -150,17 +147,24 @@
     ANLogHTTP(@"%@", logString);
 }
 
+
+#pragma mark - Override
+
+- (void)handleNetworkError:(NSError*)error subscriber:(id<RACSubscriber>)subscriber
+{
+    [ANErrorHandler handleNetworkApplicationError:error];
+    [subscriber sendError:error];
+}
+
 - (void)handleError:(NSError*)error subscriber:(id<RACSubscriber>)subscriber
 {
-    if ([error isKindOfClass:[NSError class]])
-    {
-        [ANErrorHandler handleNetworkApplicationError:error];
-    }
-    else
-    {
-        [ANErrorHandler handleNetworkServerError:(ANError*)error];
-    }
-    [subscriber sendError:error];
+    NSString * reason = [NSString stringWithFormat:@"%@ should implement %@ method\n",
+                         NSStringFromClass([self class]), NSStringFromSelector(_cmd)];
+    NSException * exc =
+    [NSException exceptionWithName:@"Override exception"
+                            reason:reason
+                          userInfo:nil];
+    [exc raise];
 }
 
 #pragma mark - Photo Uploading
