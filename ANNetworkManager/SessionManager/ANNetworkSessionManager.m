@@ -7,14 +7,12 @@
 
 #import "ANNetworkSessionManager.h"
 #import "ANNetworkActivityManager.h"
-#import "ANErrorHandler.h"
 #import "ReactiveCocoa.h"
 #import "ANLogger.h"
 
 @interface ANNetworkSessionManager () <NSURLSessionTaskDelegate>
 
 @property (nonatomic, strong) NSURLSession* session;
-@property (nonatomic, strong) NSURLSession* syncSession;
 
 @end
 
@@ -60,16 +58,18 @@
 - (RACSignal*)requestWithPath:(NSString*)path parameters:(NSDictionary *)params httpMethod:(ANHttpMethodType)httpMethod
 {
     ANNetworkRequest* request = [ANNetworkRequest requestWithPath:path parameters:params httpMethod:httpMethod];
+    return [self loadRequest:request];
+}
+
+- (RACSignal*)loadRequest:(ANNetworkRequest *)request
+{
+    [self injectSideEffectToRequest:request];
     return [self requestWithURLSession:self.session request:request];
 }
 
-- (RACSignal*)syncRequestWithPath:(NSString*)path parameters:(NSDictionary*)params
+- (void)injectSideEffectToRequest:(ANNetworkRequest*)request
 {
-    ANNetworkRequest* request = [ANNetworkRequest requestWithPath:path
-                                                       parameters:params
-                                                       httpMethod:ANHttpMethodTypePOSTJSON];
-
-    return [self requestWithURLSession:self.syncSession request:request];
+    //
 }
 
 #pragma mark - Private
@@ -126,6 +126,7 @@
     return signal;
 }
 
+
 #pragma mark - Logging & handling
 
 - (void)handleResponse:(NSDictionary*)response subscriber:(id<RACSubscriber>)subscriber
@@ -152,7 +153,6 @@
 
 - (void)handleNetworkError:(NSError*)error subscriber:(id<RACSubscriber>)subscriber
 {
-    [ANErrorHandler handleNetworkApplicationError:error];
     [subscriber sendError:error];
 }
 
@@ -177,8 +177,7 @@
         return [RACSignal empty];
     }
     ANNetworkRequest* request = [ANNetworkRequest requestMultipartWithPath:path photo:image];
-    
-    return [self requestWithURLSession:self.syncSession request:request];
+    return [self loadRequest:request];
 }
 
 @end

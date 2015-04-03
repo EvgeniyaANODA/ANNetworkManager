@@ -57,4 +57,8 @@
 
 - (RACSignal*)uploadPhoto:(NSString*)photoFileLink path:(NSString*)path parameters:(NSDictionary*)params;
 
+
+- (RACSignal*)loadRequest:(ANNetworkRequest*)request;
+- (void)injectSideEffectToRequest:(ANNetworkRequest*)request;
+
 @end
