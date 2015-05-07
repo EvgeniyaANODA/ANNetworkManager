@@ -8,7 +8,6 @@
 #import "ANNetworkSessionManager.h"
 #import "ANNetworkActivityManager.h"
 #import "ReactiveCocoa.h"
-#import "ANLogger.h"
 
 @interface ANNetworkSessionManager () <NSURLSessionTaskDelegate>
 
@@ -146,8 +145,7 @@
 
 - (void)logResponse:(NSHTTPURLResponse*)httpResponse description:(NSString*)description json:(NSDictionary*)json
 {
-    NSString* logString = [NSString stringWithFormat:@"%@\n%@\n%@\n", description, httpResponse, json];
-    ANLogHTTP(@"%@", logString);
+
 }
 
 
