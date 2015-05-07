@@ -93,7 +93,6 @@ static NSString* kApiVersion = @"";
     NSData* data = [NSJSONSerialization dataWithJSONObject:parameters
                                                    options:NSJSONWritingPrettyPrinted
                                                      error:&error];
-    ANLogError(error);
     if (!error)
     {
         [self setHTTPBody:data];
