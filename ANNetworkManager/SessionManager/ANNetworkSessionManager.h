@@ -48,14 +48,14 @@
 /**
  *  Uploads specified photo on server and returns link
  *
- *  @param photoFileLink NSString - absolute path for file on device
+ *  @param photoFile     UIImage* - absolute path for file on device
  *  @param path          NSString* URL Path for request
- *  @param params        NSDictionary params for request, encoded - filedName : value
+ *  @param params        NSDictionary* params for request, encoded - filedName : value
  *
  *  @return RACSignal* signal on completion with NSString value for this photo link
  */
 
-- (RACSignal*)uploadPhoto:(NSString*)photoFileLink path:(NSString*)path parameters:(NSDictionary*)params;
+- (RACSignal*)uploadPhoto:(UIImage*)photoFile path:(NSString*)path parameters:(NSDictionary*)params;
 
 
 - (RACSignal*)loadRequest:(ANNetworkRequest*)request;

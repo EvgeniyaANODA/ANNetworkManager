@@ -169,14 +169,13 @@
 
 #pragma mark - Photo Uploading
 
-- (RACSignal*)uploadPhoto:(NSString*)photoFileLink path:(NSString*)path parameters:(NSDictionary*)params
+- (RACSignal*)uploadPhoto:(UIImage*)photoFile path:(NSString*)path parameters:(NSDictionary*)params
 {
-    UIImage* image = [UIImage imageWithContentsOfFile:photoFileLink];
-    if (!image)
+    if (!photoFile)
     {
         return [RACSignal empty];
     }
-    ANNetworkRequest* request = [ANNetworkRequest requestMultipartWithPath:path photo:image];
+    ANNetworkRequest* request = [ANNetworkRequest requestMultipartWithPath:path photo:photoFile];
     return [self loadRequest:request];
 }
 
